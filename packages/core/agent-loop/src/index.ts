@@ -72,6 +72,7 @@ export class AgentLoopService extends Service {
       if (toolCalls.length === 0) return text || lastText
 
       for (const call of toolCalls) {
+        this.ctx.emit('agent/tool-call', agent.id, call)
         const exec: ToolExecutionContext = { callId: call.callId, signal: controller.signal }
         const result = await this.ctx.tools.execute(
           { callId: call.callId, name: call.name, arguments: call.arguments },

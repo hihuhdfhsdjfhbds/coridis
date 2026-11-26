@@ -83,7 +83,7 @@ npm run coridis -- --help
 coridis> 帮我搜一下 deepseek-harness 是什么，再读一下 README.md 的目录结构
 ```
 
-命令：`/help`、`/exit`（或 `/quit`、`/q`）。回复会通过 `agent/assistant-stream` 实时流式输出。
+命令：`/help`、`/exit`（或 `/quit`、`/q`）。回复会通过 `agent/assistant-stream` 实时流式输出；模型调用工具时先打印一行 `[tool] read_file {"path":"..."}` 提示（`agent/tool-call` 事件），执行完再继续输出。
 
 启动器读 profile 的 `coridis.profile.bundles`，应用 bundle 的 `cordis.patch.yml`，用 `ctx.plugin()` 逐个装载插件，再创建 agent、进入聊天循环。
 

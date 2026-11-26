@@ -4,7 +4,7 @@
  * importing the loop.
  */
 import { Context, Service } from '@deepseek-ai/cordis'
-import type { SessionStore } from '@coridis/session'
+import type { SessionStore, ToolCall } from '@coridis/session'
 import type { Agent, AgentCreateOptions, AgentInput, AgentRegistry } from './types.ts'
 
 export type * from './types.ts'
@@ -17,6 +17,7 @@ declare module '@deepseek-ai/cordis' {
   interface Events {
     'agent/created'(agent: Agent): void
     'agent/assistant-stream'(agentId: string, delta: string): void
+    'agent/tool-call'(agentId: string, call: ToolCall): void
   }
 }
 

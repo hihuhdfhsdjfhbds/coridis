@@ -67,8 +67,17 @@ export async function runCli(argv: readonly string[]): Promise<number> {
   const ctx = await boot(options.profile)
   try {
     const agent = await ctx.agents.create()
-    const off = ctx.on('agent/assistant-stream', (agentId: string, delta: string) => {
-      if (agentId === agent.id) output.write(delta)
+    let atLineStart = true
+    const offStream = ctx.on('agent/assistant-stream', (agentId: string, delta: string) => {
+      if (agentId !== agent.id) return
+      output.write(delta)
+      atLineStart = delta.endsWith('\n')
+    })
+    const offTool = ctx.on('agent/tool-call', (agentId: string, call: { callId: string; name: string; arguments: unknown }) => {
+      if (agentId !== agent.id) return
+      if (!atLineStart) output.write('\n')
+      output.write(`[tool] ${call.name}${formatToolArgs(call.arguments)}\n`)
+      atLineStart = true
     })
     try {
       if (options.task !== null) {
@@ -79,7 +88,8 @@ export async function runCli(argv: readonly string[]): Promise<number> {
       }
       return await chat(ctx, agent)
     } finally {
-      off()
+      offStream()
+      offTool()
     }
   } catch (error) {
     process.stderr.write(`coridis: ${(error as Error).stack ?? String(error)}\n`)
@@ -90,6 +100,17 @@ export async function runCli(argv: readonly string[]): Promise<number> {
 }
 
 const PROMPT = 'coridis> '
+
+function formatToolArgs(args: unknown): string {
+  let text: string
+  try {
+    text = JSON.stringify(args)
+  } catch {
+    text = String(args)
+  }
+  if (!text || text === '{}') return ''
+  return ` ${text.length > 160 ? `${text.slice(0, 157)}...` : text}`
+}
 
 async function chat(ctx: Context, agent: Agent): Promise<number> {
   output.write('coridis chat — /help for commands, /exit to leave.\n\n')
