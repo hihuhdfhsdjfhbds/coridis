@@ -66,7 +66,7 @@ export class DeepSeekAdapter implements LlmAdapter {
     const apiKey = process.env[apiKeyEnv]
     if (!apiKey) throw new Error(`DeepSeek API key is missing (env ${apiKeyEnv})`)
 
-    const baseUrl = (this.config.baseUrl ?? 'https://api.deepseek.com').replace(/\/$/, '')
+    const baseUrl = (process.env.DEEPSEEK_BASE_URL ?? this.config.baseUrl ?? 'https://api.deepseek.com').replace(/\/$/, '')
     const body = {
       model: request.model,
       messages: toProviderMessages(request.messages),

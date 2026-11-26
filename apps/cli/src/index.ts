@@ -89,32 +89,33 @@ export async function runCli(argv: readonly string[]): Promise<number> {
   }
 }
 
+const PROMPT = 'coridis> '
+
 async function chat(ctx: Context, agent: Agent): Promise<number> {
   output.write('coridis chat — /help for commands, /exit to leave.\n\n')
-  const rl = createInterface({ input, output, prompt: 'coridis> ' })
+  const rl = createInterface({ input, output })
   rl.on('SIGINT', () => rl.close())
-  rl.prompt()
+  output.write(PROMPT)
   for await (const line of rl) {
     const text = line.trim()
-    if (text === '') {
-      rl.prompt()
-      continue
-    }
     if (text === '/exit' || text === '/quit' || text === '/q') break
     if (text === '/help') {
       output.write('commands: /help, /exit, /quit, /q\n')
-      rl.prompt()
+      output.write(PROMPT)
       continue
     }
-    try {
-      await agent.submit({ content: text })
-      await ctx.agentLoop.run(agent.id)
-      output.write('\n')
-    } catch (error) {
-      process.stderr.write(`\nerror: ${(error as Error).message}\n`)
+    if (text !== '') {
+      try {
+        await agent.submit({ content: text })
+        await ctx.agentLoop.run(agent.id)
+        output.write('\n')
+      } catch (error) {
+        process.stderr.write(`\nerror: ${(error as Error).message}\n`)
+      }
     }
-    rl.prompt()
+    output.write(PROMPT)
   }
+  output.write('\n')
   rl.close()
   return 0
 }
