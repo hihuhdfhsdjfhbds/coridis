@@ -42,7 +42,7 @@ export interface DefineToolOptions<A, V> {
  * from `A`; the registry validates the raw model arguments against
  * `parameters` before `execute` runs.
  */
-export function defineTool<A extends Record<string, unknown>, V>(options: DefineToolOptions<A, V>): ToolDefinition {
+export function defineTool<A, V>(options: DefineToolOptions<A, V>): ToolDefinition {
   return {
     name: options.name,
     description: options.description,
