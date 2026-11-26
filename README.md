@@ -59,15 +59,22 @@ Cordis 直接作为依赖使用，版本 `^4.1.0`，与 DSH 当前 vendored 版�
 npm install        # 需要网络（typescript、@deepseek-ai/cordis 等）
 npm run build      # tsc -b 编译全部包
 
-# 需要 DeepSeek API key；web_search 需要 Tavily key
-export DEEPSEEK_API_KEY=...
-export TAVILY_API_KEY=...
+# 配置方式二选一：写 .env（自动加载，不覆盖已存在的环境变量），或 export
+# .env:
+#   DEEPSEEK_API_KEY=...
+#   TAVILY_API_KEY=...
 
 # 交互式命令行聊天（默认）
 npm run coridis
 
 # 一次性任务
 npm run coridis -- "读一下 README.md 并总结"
+
+# 查看组合出来的插件树（机器审查用）
+npm run coridis -- --dump-config
+
+# 帮助
+npm run coridis -- --help
 ```
 
 聊天里可以直接让 agent 用工具，例如：

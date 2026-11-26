@@ -11,36 +11,68 @@ import type { Context } from '@deepseek-ai/cordis'
 import type { Agent } from '@coridis/agent'
 import '@coridis/agent'
 import '@coridis/agent-loop'
-import { boot } from './boot.ts'
+import { boot, composeEntries } from './boot.ts'
+import { loadDotEnv } from './env.ts'
 
 export interface CliOptions {
   profile: string
   task: string | null
+  dumpConfig: boolean
+  help: boolean
 }
 
 export function parseArgs(argv: readonly string[]): CliOptions {
   let profile = 'minimal'
+  let dumpConfig = false
+  let help = false
   const rest: string[] = []
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i]
     if (arg === '--profile' || arg === '-p') profile = argv[++i] ?? profile
     else if (arg.startsWith('--profile=')) profile = arg.slice('--profile='.length)
+    else if (arg === '--dump-config') dumpConfig = true
+    else if (arg === '--help' || arg === '-h') help = true
     else rest.push(arg)
   }
-  return { profile, task: rest.join(' ').trim() || null }
+  return { profile, task: rest.join(' ').trim() || null, dumpConfig, help }
+}
+
+function printUsage(): void {
+  output.write([
+    'usage: coridis [options] [task]',
+    '',
+    'options:',
+    '  -p, --profile <name>   profile to boot (default: minimal)',
+    '  --dump-config          print the composed plugin tree and exit',
+    '  -h, --help             show this help',
+    '',
+    'With no task, starts an interactive command-line chat.',
+    '',
+  ].join('\n'))
 }
 
 export async function runCli(argv: readonly string[]): Promise<number> {
-  const { profile, task } = parseArgs(argv)
-  const ctx = await boot(profile)
+  loadDotEnv()
+  const options = parseArgs(argv)
+  if (options.help) {
+    printUsage()
+    return 0
+  }
+  if (options.dumpConfig) {
+    const entries = await composeEntries(options.profile)
+    output.write(`${JSON.stringify(entries, null, 2)}\n`)
+    return 0
+  }
+
+  const ctx = await boot(options.profile)
   try {
     const agent = await ctx.agents.create()
     const off = ctx.on('agent/assistant-stream', (agentId: string, delta: string) => {
       if (agentId === agent.id) output.write(delta)
     })
     try {
-      if (task !== null) {
-        await agent.submit({ content: task })
+      if (options.task !== null) {
+        await agent.submit({ content: options.task })
         await ctx.agentLoop.run(agent.id)
         output.write('\n')
         return 0
