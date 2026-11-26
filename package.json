@@ -1,0 +1,25 @@
+{
+  "name": "coridis",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A minimal Cordis-based agent harness modeled on DeepSeek Harness.",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*/*",
+    "profiles/*"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty",
+    "clean": "tsc -b --clean",
+    "coridis": "node apps/cli/lib/bin.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

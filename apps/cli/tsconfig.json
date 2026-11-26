@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "declarationDir": "lib/types"
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../../packages/core/agent" },
+    { "path": "../../packages/core/agent-loop" },
+    { "path": "../../packages/bundle/minimal" }
+  ]
+}

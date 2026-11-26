@@ -1,0 +1,43 @@
+{
+  "name": "@coridis/bundle-minimal",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Standalone minimal bundle: the complete Cordis tree for a web-capable agent.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "src", "cordis.patch.yml"],
+  "dependencies": {
+    "@coridis/agent": "0.0.0",
+    "@coridis/agent-loop": "0.0.0",
+    "@coridis/llm": "0.0.0",
+    "@coridis/llm-deepseek": "0.0.0",
+    "@coridis/session": "0.0.0",
+    "@coridis/system-prompt": "0.0.0",
+    "@coridis/tool-read-file": "0.0.0",
+    "@coridis/tool-web": "0.0.0",
+    "@coridis/tools": "0.0.0",
+    "@coridis/web": "0.0.0",
+    "@coridis/web-fetch-http": "0.0.0",
+    "@coridis/web-search-tavily": "0.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  },
+  "coridis": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

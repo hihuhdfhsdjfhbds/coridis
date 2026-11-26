@@ -1,0 +1,26 @@
+{
+  "name": "@coridis/tool-read-file",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Model-facing read_file tool.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "src"],
+  "dependencies": {
+    "@coridis/tools": "0.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  }
+}

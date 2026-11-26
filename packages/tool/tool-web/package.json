@@ -1,0 +1,27 @@
+{
+  "name": "@coridis/tool-web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Model-facing web_search and web_fetch tools over the ctx.web seam.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "src"],
+  "dependencies": {
+    "@coridis/tools": "0.0.0",
+    "@coridis/web": "0.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  }
+}

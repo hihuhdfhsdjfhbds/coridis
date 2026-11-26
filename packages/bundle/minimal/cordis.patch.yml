@@ -1,0 +1,51 @@
+# coridis minimal bundle: the complete Cordis tree for a minimal web-capable
+# agent. Like @deepseek-ai/dsh-sdk-minimal, this bundle inherits no other
+# bundle, so every row below is an explicit composition decision.
+
+- insert:
+    - id: llm
+      name: '@coridis/llm'
+
+    - id: llm-deepseek
+      name: '@coridis/llm-deepseek'
+      config:
+        apiKeyEnv: DEEPSEEK_API_KEY
+        baseUrl: https://api.deepseek.com
+        model: deepseek-chat
+
+    - id: session
+      name: '@coridis/session'
+
+    - id: tools
+      name: '@coridis/tools'
+
+    - id: system-prompt
+      name: '@coridis/system-prompt'
+      config:
+        persona: 'You are a helpful software engineering assistant.'
+
+    - id: agent
+      name: '@coridis/agent'
+
+    - id: agent-loop
+      name: '@coridis/agent-loop'
+      config:
+        agents: []
+        defaultModel: deepseek-chat
+
+    - id: web
+      name: '@coridis/web'
+
+    - id: web-fetch-http
+      name: '@coridis/web-fetch-http'
+
+    - id: web-search-tavily
+      name: '@coridis/web-search-tavily'
+      config:
+        apiKeyEnv: TAVILY_API_KEY
+
+    - id: tool-read-file
+      name: '@coridis/tool-read-file'
+
+    - id: tool-web
+      name: '@coridis/tool-web'

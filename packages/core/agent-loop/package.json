@@ -1,0 +1,30 @@
+{
+  "name": "@coridis/agent-loop",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Default turn/step driver implementing the Agent interface.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "src"],
+  "dependencies": {
+    "@coridis/agent": "0.0.0",
+    "@coridis/llm": "0.0.0",
+    "@coridis/session": "0.0.0",
+    "@coridis/system-prompt": "0.0.0",
+    "@coridis/tools": "0.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  }
+}

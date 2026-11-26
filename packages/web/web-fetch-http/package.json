@@ -1,0 +1,26 @@
+{
+  "name": "@coridis/web-fetch-http",
+  "version": "0.0.0",
+  "private": true,
+  "description": "HTTP fetch provider for the ctx.web seam.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "src"],
+  "dependencies": {
+    "@coridis/web": "0.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  }
+}

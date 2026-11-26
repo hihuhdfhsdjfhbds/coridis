@@ -1,0 +1,27 @@
+{
+  "name": "@coridis/cli",
+  "version": "0.0.0",
+  "private": true,
+  "description": "coridis launcher: profile boot and one-shot task runner.",
+  "type": "module",
+  "bin": {
+    "coridis": "lib/bin.js"
+  },
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "src"],
+  "dependencies": {
+    "@coridis/agent": "0.0.0",
+    "@coridis/agent-loop": "0.0.0",
+    "@coridis/bundle-minimal": "0.0.0",
+    "@deepseek-ai/cordis": "^4.1.0",
+    "js-yaml": "^4.1.0"
+  }
+}

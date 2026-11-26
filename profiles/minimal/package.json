@@ -1,0 +1,16 @@
+{
+  "name": "coridis-profile-minimal",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@coridis/bundle-minimal": "0.0.0"
+  },
+  "coridis": {
+    "profile": {
+      "bundles": [
+        "@coridis/bundle-minimal"
+      ]
+    }
+  }
+}
